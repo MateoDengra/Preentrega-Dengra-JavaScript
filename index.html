@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
-    <script src="main.js"></script>    
-    <title>Hola Mundo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <title>Horoscope Generator</title>
 </head>
 <body>
     <header>
         <div id="cuadro">
             <h1>Tu horóscopo hoy 👁</h1>
-            <p>La idea de esto a futuro es lograr pasar del main.js los valores de los signos para poder obtener un mensaje personalizado dependiendo el signo de cada uno correspondiente a su fecha de nacimiento.</p>
-            <img src="./sources/horoscopo.jpg" alt="main">    
+            <h2 id="YourSigne"></h2>
+            <p id="YourHoroscopeMessage">Este parrafo esta reservado para colocar el horóscopo</p>
+            <img src="./sources/horoscopo.jpg" alt="main">
         </div>
+        <script src="main.js"></script>       
     </header>
 </body>
 </html>
