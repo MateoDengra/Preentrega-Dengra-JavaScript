@@ -1,22 +1,36 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-let bday = prompt ("Ingrese su fecha de cumpleaños en el formato YYYY-MM-DD"); 
-let day = new Date(bday)
-let luckyNumber = Math.round(Math.random() * 3 + 1)
-console.log(luckyNumber)
-// Lucky Number es el numero de la suerte para el horoscopo, generado aleatoriamente, dependiendo del valor que tenga, va a soltar un mensaje distinto dependiendo del signo zodiacal correspondiente
+let savedBday = localStorage.getItem("bday");
+let day 
 
-if(isNaN(day)){
-    let invalidSigne 
-    console.log("La fecha ingresada no es valida");
-    alert("La fecha ingresada no es válida, recargue la página e intente nuevamente");}
-else{
+if (savedBday) {
+    day = new Date(savedBday);
+    console.log("Fecha recuperada del localStorage:", savedBday);
+  } else {
+    let bday = prompt("Ingrese su fecha de cumpleaños en el formato YYYY-MM-DD");
+    day = new Date(bday)
+    const enJSON = JSON.stringify(bday);
+
+    if (isNaN(day)) {
+      console.log("La fecha ingresada no es válida");
+      alert("La fecha ingresada no es válida, recargue la página e intente nuevamente");
+    } else {
+      localStorage.setItem("bday", bday, enJSON);
+    }
+  }
+  if (!isNaN(day)) {
+    let luckyNumber = Math.floor(Math.random() * 3) + 1;
+    console.log(luckyNumber)
+    // Lucky Number es el numero de la suerte para el horoscopo, generado aleatoriamente, dependiendo del valor que tenga, va a soltar un mensaje distinto dependiendo del signo zodiacal correspondiente
+    
     let month = day.getMonth() + 1;
     let dayNumber = day.getDate();
 
-    let signe = horoscope(month, dayNumber);
+    let signe = horoscope(month, dayNumber); 
     console.log("Tu signo zodiacal es", signe);
-    let message = luckyMessage(signe, luckyNumber);
+
+    let message = luckyMessage(signe, luckyNumber); 
+
 
     document.getElementById("YourSigne").innerText = signe;
     document.getElementById("YourHoroscopeMessage").innerHTML = `<p>${message}</p>`;
