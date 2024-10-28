@@ -20,7 +20,7 @@ const messages = {
              "Intente mejorar el diálogo con su enamorado. Sepa que será la mejor manera para darle fin a esas derencias que tienen hace tiempo y dañan el vínculo.", 
              "Procure distenderse cuando llegue a su casa antes de cenar. Busque y vea una buena película, esto le hará olvidar la rutina pesada que vivió en esta jornada."],
       Virgo:
-             ["Será una magnica jornada para saldar las deudas personales e impuestos pendientes que lo torturan hace tiempo. No permita que se sigan acumulando los intereses.", 
+             ["Será una magnífica jornada para saldar las deudas personales e impuestos pendientes que lo torturan hace tiempo. No permita que se sigan acumulando los intereses.", 
              "Ponga más atención a los reclamos que le hace su alma gemela. No crea que usted es el único que tiene problemas en la vida, traten de ayudarse entre ambos.",
              "Hoy en su familia podrá relajarse y así encontrará la atmosfera más adecuada para sobrellevar todas las dicultades que ha transitado en su día laboral."],
       Libra:
