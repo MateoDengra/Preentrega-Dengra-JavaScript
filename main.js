@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.setItem("bday", bday);
             day = new Date(bday);
             console.log("Fecha ingresada:", bday);
-            mostrarHoroscopo(day);
+
           } else {
             console.log("La fecha ingresada no es válida");
             alert("La fecha ingresada no es válida, recargue la página e intente nuevamente");
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     async function cargarSignos() {
       try {
-          const response = await fetch("./signes.json");
+          const response = await fetch("https://github.com/MateoDengra/Preentrega-Dengra-JavaScript/signes.json");
           const data = await response.json();
           return data.signos;
       } catch (error) {
@@ -46,7 +46,26 @@ document.addEventListener("DOMContentLoaded", function() {
       const month = day.getMonth() + 1;
       const dayNumber = day.getDate();
       let signo;
-
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: "Felicitaciones!",
+        text: `Tu signo zodiacal es ${signe}`,
+        showCancelButton: true,
+        confirmButtonText: "Ok!",
+        cancelButtonText: "Ingresar otra fecha",
+        reverseButtons: true
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.cancel) {
+          localStorage.removeItem("bday");
+          location.reload();
+        }
+      });
       // Condicionales para determinar el signo basado en mes y día
       if ((month === 3 && dayNumber >= 21) || (month === 4 && dayNumber <= 19)) {
           signo = "Aries";
@@ -89,3 +108,24 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   }
 });
+
+// SweetAlert de confirmación de signo
+// const swalWithBootstrapButtons = Swal.mixin({
+//   customClass: {
+//     confirmButton: "btn btn-success",
+//     cancelButton: "btn btn-danger"
+//   },
+//   buttonsStyling: false
+// });
+// swalWithBootstrapButtons.fire({
+//   title: "Felicitaciones!",
+//   text: `Tu signo zodiacal es ${signe}`,
+//   showCancelButton: true,
+//   confirmButtonText: "Ok!",
+//   cancelButtonText: "Ingresar otra fecha",
+//   reverseButtons: true
+// }).then((result) => {
+//   if (result.dismiss === Swal.DismissReason.cancel) {
+//     localStorage.removeItem("bday");
+//     location.reload();
+//   }
