@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (savedBday) {
       day = new Date(savedBday);
       console.log("Fecha recuperada del localStorage:", savedBday);
-      mostrarHoroscopo(day);
+      procesarSigno(day);
     } else {
       Swal.fire({
         title: 'Ingrese su fecha de cumpleaños',
@@ -30,63 +30,32 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       });
     }
-  
-    function mostrarHoroscopo(day) {
-      let luckyNumber = Math.floor(Math.random() * 3);
-      console.log("Lucky number:", luckyNumber);
-  
-      let month = day.getMonth() + 1;
-      let dayNumber = day.getDate();
-  
-      let signe = horoscope(month, dayNumber);
-      console.log("Tu signo zodiacal es:", signe);
-  
-      let message = luckyMessage(signe, luckyNumber);
-      let info = infoSigne(signe);
-      console.log("Información de tu signo:", info);
-  
-      // Actualización de HTML
-      document.getElementById("YourSigne").innerText = signe;
-      document.getElementById("YourHoroscopeMessage").innerHTML = `<p>${message}</p>`;
-  
-      // Agregar listener para mostrar información del signo
-      document.getElementById("YourSigne").addEventListener("click", function() {
-        document.getElementById("infoSigne").innerHTML = `<p>${info}</p>`;
-      });
-  
-      // SweetAlert de confirmación de signo
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success",
-          cancelButton: "btn btn-danger"
-        },
-        buttonsStyling: false
-      });
-  
-      swalWithBootstrapButtons.fire({
-        title: "Felicitaciones!",
-        text: `Tu signo zodiacal es ${signe}`,
-        showCancelButton: true,
-        confirmButtonText: "Ok!",
-        cancelButtonText: "Ingresar otra fecha",
-        reverseButtons: true
-      }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.cancel) {
-          localStorage.removeItem("bday");
-          location.reload();
-        }
-      });
-    }
 
-function horoscope(month, day) {
-    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
-        return "Aries ♈";
-    } else if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) {
-        return "Tauro ♉";
-    } else if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) {
-        return "Géminis ♊";
-    } 
-    else if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) {
+    async function cargarSignos() {
+      try {
+          const response = await fetch("./signes.json");
+          const data = await response.json();
+          return data.signos;
+      } catch (error) {
+          console.error("Error al cargar el archivo JSON:", error);
+      }
+  }
+
+  async function procesarSigno(day) {
+      const signos = await cargarSignos();
+      const month = day.getMonth() + 1;
+      const dayNumber = day.getDate();
+      let signo;
+
+      // Condicionales para determinar el signo basado en mes y día
+      if ((month === 3 && dayNumber >= 21) || (month === 4 && dayNumber <= 19)) {
+          signo = "Aries";
+      } else if ((month === 4 && dayNumber >= 20) || (month === 5 && dayNumber <= 20)) {
+          signo = "Tauro";
+      } else if ((month === 5 && dayNumber >= 21) || (month === 6 && dayNumber <= 20)) {
+          signo = "Géminis";
+      }
+      else if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) {
         return "Cáncer ♋";
     }
     else if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) {
@@ -104,6 +73,19 @@ function horoscope(month, day) {
     } else if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) {
         return "Acuario ♒";
     } else if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) {
-        return "Piscis ♓";
-    }}
-    });
+        return "Piscis ♓";}
+
+      const signoInfo = signos.find(s => s.name === signo);
+
+      if (signoInfo) {
+          console.log(`Tu signo zodiacal es ${signoInfo.name} ${signoInfo.symbol}`);
+          console.log(`Descripción: ${signoInfo.descripcion}`);
+
+          // Muestra la información en el HTML
+          document.getElementById("YourSigne").innerText = `${signoInfo.name} ${signoInfo.symbol}`;
+          document.getElementById("YourHoroscopeMessage").innerHTML = `<p>${signoInfo.descripcion}</p>`;
+      } else {
+          console.log("No se pudo determinar el signo.");
+      }
+  }
+});
