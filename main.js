@@ -104,7 +104,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Muestra la información en el HTML
         document.getElementById("YourSigne").innerText = `${signoInfo.name} ${signoInfo.symbol}`;
-        document.getElementById("infoSigne").innerText = `${signoInfo.descripcion}`
         document.getElementById("YourHoroscopeMessage").innerHTML = `${signoInfo.descripcion}`;
 
         const luckyMessageText = luckyMessage(signoInfo.name);
@@ -112,14 +111,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const luckyMessageElement = document.getElementById("YourHoroscopeMessage");
         if (luckyMessageElement) {
             luckyMessageElement.innerText = luckyMessageText; // Muestra el mensaje de la suerte
-        } else {
-            console.error("Elemento 'YourLuckyMessage' no encontrado en el DOM.");
         }
-    
         // Evento de clic
         document.getElementById("YourSigne").addEventListener("click", function() {
-            const infoElement = document.getElementById("infoSigne");
-            infoElement.innerHTML = `<p>${signoInfo.descripcion}</p>`;
+          const infoElement = document.getElementById("infoSigne");
+          infoElement.innerHTML = `${signoInfo.descripcion}`;
         });
     } else {
         console.log("No se pudo determinar el signo.");
