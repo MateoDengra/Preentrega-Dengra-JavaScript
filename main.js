@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const luckyMessageText = luckyMessage(signoInfo.name);
 
-        const luckyMessageElement = document.getElementById("YourLuckyMessage");
+        const luckyMessageElement = document.getElementById("YourHoroscopeMessage");
         if (luckyMessageElement) {
             luckyMessageElement.innerText = luckyMessageText; // Muestra el mensaje de la suerte
         } else {
