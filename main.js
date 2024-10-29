@@ -104,12 +104,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Muestra la información en el HTML
         document.getElementById("YourSigne").innerText = `${signoInfo.name} ${signoInfo.symbol}`;
-        document.getElementById("infoSigne").innerText = `<p>${signoInfo.descripcion}</p>`
-        document.getElementById("YourHoroscopeMessage").innerHTML = `<p>${message}</p>`;
+        document.getElementById("infoSigne").innerText = `${signoInfo.descripcion}`
+        document.getElementById("YourHoroscopeMessage").innerHTML = `${signoInfo.descripcion}`;
 
-        // Generador de número de la suerte
+        // Generador de número de la suerte con mensaje
         const luckyNumber = Math.floor(Math.random() * messages[signoInfo.name].length); 
         const luckyMessage = messages[signoInfo.name][luckyNumber];
+        document.getElementById("YourLuckyMessage").innerText = luckyMessage;
 
         // Muestra el mensaje de la suerte en el HTML
         document.getElementById("YourLuckyMessage").innerText = luckyMessage;
