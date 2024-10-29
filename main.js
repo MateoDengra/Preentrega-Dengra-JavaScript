@@ -107,14 +107,15 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("infoSigne").innerText = `${signoInfo.descripcion}`
         document.getElementById("YourHoroscopeMessage").innerHTML = `${signoInfo.descripcion}`;
 
-        // Generador de número de la suerte con mensaje
-        const luckyNumber = Math.floor(Math.random() * messages[signoInfo.name].length); 
-        const luckyMessage = messages[signoInfo.name][luckyNumber];
-        document.getElementById("YourLuckyMessage").innerText = luckyMessage;
+        const luckyMessageText = luckyMessage(signoInfo.name);
 
-        // Muestra el mensaje de la suerte en el HTML
-        document.getElementById("YourLuckyMessage").innerText = luckyMessage;
-
+        const luckyMessageElement = document.getElementById("YourLuckyMessage");
+        if (luckyMessageElement) {
+            luckyMessageElement.innerText = luckyMessageText; // Muestra el mensaje de la suerte
+        } else {
+            console.error("Elemento 'YourLuckyMessage' no encontrado en el DOM.");
+        }
+    
         // Evento de clic
         document.getElementById("YourSigne").addEventListener("click", function() {
             const infoElement = document.getElementById("infoSigne");

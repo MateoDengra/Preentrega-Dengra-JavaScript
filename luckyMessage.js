@@ -49,8 +49,16 @@ const messages = {
              "En esta jornada, se sentirá una poco indeciso. Será bueno que se deje llevar por sus deseos y que disfrute del presente sin preocuparse por su futuro."],
 }
 
-function luckyMessage(sign, luckyNumber) {
-    let signKey = sign.split(" ")[0]; // Tomamos solo el nombre del signo sin el símbolo
-    let signMessages = messages[signKey]; // Accedemos al array correspondiente al signo
-    return signMessages[luckyNumber];
-}
+function luckyMessage(sign) {
+       let signKey = sign.split(" ")[0]; 
+       let signMessages = messages[signKey]; 
+   
+       if (signMessages) {
+           // Genera un número de suerte aleatorio dentro del rango de mensajes
+           const luckyNumber = Math.floor(Math.random() * signMessages.length);
+           return signMessages[luckyNumber]; // Retorna el mensaje de suerte aleatorio
+       } else {
+           console.error("No se encontraron mensajes para el signo:", sign);
+           return "No hay mensaje de suerte disponible."; 
+       }
+   }
