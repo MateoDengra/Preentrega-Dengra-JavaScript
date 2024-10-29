@@ -99,11 +99,28 @@ document.addEventListener("DOMContentLoaded", function() {
               }
           });
 
-          // Muestra la información en el HTML
-          document.getElementById("YourSigne").innerText = `${signoInfo.name} ${signoInfo.symbol}`;
-          document.getElementById("YourHoroscopeMessage").innerHTML = `<p>${signoInfo.descripcion}</p>`;
-      } else {
-          console.log("No se pudo determinar el signo.");
-      }
-  }
+        console.log(`Tu signo zodiacal es ${signoInfo.name} ${signoInfo.symbol}`);
+        console.log(`Descripción: ${signoInfo.descripcion}`);
+
+        // Muestra la información en el HTML
+        document.getElementById("YourSigne").innerText = `${signoInfo.name} ${signoInfo.symbol}`;
+        document.getElementById("YourHoroscopeMessage").innerHTML = `<p>${signoInfo.descripcion}</p>`;
+
+        // Generador de número de la suerte
+        const luckyNumber = Math.floor(Math.random() * messages[signo].length); 
+        const luckyMessage = messages[signo][luckyNumber];
+
+        // Muestra el mensaje de la suerte en el HTML
+        document.getElementById("YourLuckyMessage").innerText = luckyMessage;
+
+        // Evento de clic
+        document.getElementById("YourSigne").addEventListener("click", function() {
+            const infoElement = document.getElementById("infoSigne");
+            infoElement.innerHTML = `<p>${signoInfo.descripcion}</p>`;
+        });
+    } else {
+        console.log("No se pudo determinar el signo.");
+    }
+}
 });
+
